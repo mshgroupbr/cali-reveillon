@@ -95,7 +95,7 @@ footer{text-align:center;font:12px var(--fb);color:var(--tx2);padding:0 18px 20p
 <footer>Cali Cravings — Itapema, SC</footer>
 <div class="bar"><a id="wa" href="#">Solicite sua proposta</a></div>
 <script>
-var WHATS="";
+var WHATS="5547992918294";
 function msg(){var t=document.querySelector('.tab.on').dataset.t;return encodeURIComponent('Olá! Quero solicitar uma proposta para o '+(t==='ny'?'pacote de Ano Novo':'pacote de Natal')+' do Cali.')}
 function upd(){document.getElementById('wa').href='https://wa.me/'+WHATS+'?text='+msg()}
 document.querySelectorAll('.tab').forEach(function(e){e.onclick=function(){document.querySelectorAll('.tab,.pane').forEach(function(x){x.classList.remove('on')});e.classList.add('on');document.getElementById(e.dataset.t).classList.add('on');window.scrollTo(0,0);upd()}});
