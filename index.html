@@ -38,7 +38,7 @@ ul.l li:before{content:"";position:absolute;left:2px;top:17px;width:7px;height:7
 .bev p{font-size:14.5px;color:var(--tx2);margin-top:6px}
 .final{margin-top:30px;background:var(--g1);color:#fff;border-radius:14px;text-align:center;padding:22px 14px}.final span{display:block;font:600 12px var(--fb);letter-spacing:.18em;text-transform:uppercase;color:#cfe3d1}.final b{font-family:var(--fd);display:block;font-size:30px;font-weight:normal;margin:6px 0 2px}.final small{font:13px var(--fb);color:#dbe9dc}
 .bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--bd);padding:10px 14px;text-align:center;z-index:9}
-.bar a{display:inline-block;background:var(--g1);color:#fff;text-decoration:none;font:700 16px var(--fb);padding:14px 30px;border-radius:30px;width:100%;max-width:460px}
+.bar a{display:inline-block;background:var(--g1);color:#fff;text-decoration:none;font:700 14.5px/1.3 var(--fb);padding:13px 22px;border-radius:30px;width:100%;max-width:460px}
 footer{text-align:center;font:12px var(--fb);color:var(--tx2);padding:0 18px 20px}
 .hero{position:relative;overflow:hidden}.hero>*:not(video){position:relative;z-index:2}.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}.hero:after{content:"";position:absolute;inset:0;background:rgba(61,92,66,.62);z-index:1}
 .snd{position:absolute;right:14px;bottom:14px;z-index:3;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.55);color:#fff;font:600 13px var(--fb,Arial,sans-serif);padding:9px 14px;border-radius:24px;cursor:pointer;backdrop-filter:blur(4px)}.snd svg{width:18px;height:18px}
@@ -94,11 +94,18 @@ footer{text-align:center;font:12px var(--fb);color:var(--tx2);padding:0 18px 20p
 <div class="box"><b>Reservas limitadas</b>As escolhas de entrada, prato principal e sobremesa são feitas antecipadamente por convidado. Solicite sua proposta e garanta a sua mesa.</div>
 </main>
 <footer>Cali Cravings — Itapema, SC</footer>
-<div class="bar"><a id="wa" href="#">Solicite sua proposta</a></div>
+<div class="bar"><a id="wa" href="#">Efetive sua proposta com nossos atendentes e gere sua chave PIX</a></div>
 <script>
 var WHATS="5547992918294";
-function msg(){var t=document.querySelector('.tab.on').dataset.t;return encodeURIComponent('Olá! Quero solicitar uma proposta para o '+(t==='ny'?'pacote de Ano Novo':'pacote de Natal')+' do Cali.')}
+function msg(){var t=document.querySelector('.tab.on').dataset.t;return encodeURIComponent('Olá! Quero efetivar minha proposta do '+(t==='ny'?'pacote de Ano Novo':'pacote de Natal')+' do Cali e gerar minha chave PIX.')}
 function upd(){document.getElementById('wa').href='https://wa.me/'+WHATS+'?text='+msg()}
 document.querySelectorAll('.tab').forEach(function(e){e.onclick=function(){document.querySelectorAll('.tab,.pane').forEach(function(x){x.classList.remove('on')});e.classList.add('on');document.getElementById(e.dataset.t).classList.add('on');window.scrollTo(0,0);upd()}});
 upd();
-</script><script>(function(){var vd=document.querySelector(".hero video"),b=document.getElementById("snd"),w=document.getElementById("w"),t=document.getElementById("st");w.style.display="none";b.onclick=function(){vd.muted=!vd.muted;if(!vd.muted){vd.volume=0.7;vd.play();w.style.display="";t.textContent="Silenciar"}else{w.style.display="none";t.textContent="Ativar som"}}})();</script></body></html>
+</script><script>(function(){var vd=document.querySelector(".hero video"),b=document.getElementById("snd"),w=document.getElementById("w"),t=document.getElementById("st"),userMuted=false,done=false;
+function ui(){var on=!vd.muted;w.style.display=on?"":"none";t.textContent=on?"Silenciar":"Ativar som"}
+function unmute(){if(userMuted||done)return;vd.muted=false;vd.volume=0.7;var p=vd.play();if(p&&p.catch)p.catch(function(){vd.muted=true;vd.play();ui()});done=true;ui()}
+function gest(){["pointerdown","touchend","click","keydown"].forEach(function(e){document.removeEventListener(e,unmute,true)});}
+b.onclick=function(ev){ev.stopPropagation();if(vd.muted){userMuted=false;done=false;unmute()}else{userMuted=true;vd.muted=true;ui()}};
+vd.muted=false;vd.volume=0.7;var p0=vd.play();
+if(p0&&p0.then){p0.then(function(){done=true;ui()}).catch(function(){vd.muted=true;vd.play();ui();["pointerdown","touchend","click","keydown"].forEach(function(e){document.addEventListener(e,function h(){unmute();document.removeEventListener(e,h,true)},true)})})}
+ui();})();</script></body></html>
